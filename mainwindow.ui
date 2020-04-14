@@ -1,0 +1,315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1280</width>
+    <height>720</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QPushButton" name="newRoomButton">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>280</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+
+background-color: rgba(0, 172, 252, 30);
+
+border:0px solid rgb(0,175,252);
+    border-style: outset;
+    border-width: 1px;
+margin-bottom: 1px;
+}
+QPushButton:hover
+{
+background-color: rgba(0, 172, 252, 50);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 120, 252, 150);
+    border-style: inset;
+    border-width: 2px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Create new Room</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="sidebarImg">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>280</width>
+      <height>1280</height>
+     </rect>
+    </property>
+    <property name="minimumSize">
+     <size>
+      <width>280</width>
+      <height>1280</height>
+     </size>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QLabel
+{
+	border-image: url(:/IMG/Images/Main Window/Sidebar - Chalkboard.jpg) 0 0 0 0 stretch stretch;
+}</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+    <property name="scaledContents">
+     <bool>true</bool>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newRoomButton_2">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>50</y>
+      <width>280</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+
+background-color: rgba(0, 172, 252, 30);
+
+border:0px solid rgb(0,175,252);
+    border-style: outset;
+    border-width: 1px;
+
+margin-bottom: 1px;
+}
+QPushButton:hover
+{
+background-color: rgba(0, 172, 252, 50);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 120, 252, 150);
+    border-style: inset;
+    border-width: 2px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Button</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newRoomButton_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>100</y>
+      <width>280</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+
+background-color: rgba(0, 172, 252, 30);
+
+border:0px solid rgb(0,175,252);
+    border-style: outset;
+    border-width: 1px;
+
+margin-bottom: 1px;
+}
+QPushButton:hover
+{
+background-color: rgba(0, 172, 252, 50);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 120, 252, 150);
+    border-style: inset;
+    border-width: 2px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Button</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newRoomButton_4">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>150</y>
+      <width>280</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+
+background-color: rgba(0, 172, 252, 30);
+
+border:0px solid rgb(0,175,252);
+    border-style: outset;
+    border-width: 1px;
+
+margin-bottom: 1px;
+}
+QPushButton:hover
+{
+background-color: rgba(0, 172, 252, 50);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 120, 252, 150);
+    border-style: inset;
+    border-width: 2px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Button</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newRoomButton_5">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>200</y>
+      <width>280</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+
+background-color: rgba(0, 172, 252, 30);
+
+border:0px solid rgb(0,175,252);
+    border-style: outset;
+    border-width: 1px;
+
+margin-bottom: 1px;
+}
+QPushButton:hover
+{
+background-color: rgba(0, 172, 252, 50);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 120, 252, 150);
+    border-style: inset;
+    border-width: 2px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Button</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="newRoomButton_6">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>250</y>
+      <width>280</width>
+      <height>50</height>
+     </rect>
+    </property>
+    <property name="cursor">
+     <cursorShape>PointingHandCursor</cursorShape>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton
+{
+
+background-color: rgba(0, 172, 252, 30);
+
+border:0px solid rgb(0,175,252);
+    border-style: outset;
+    border-width: 1px;
+
+margin-bottom: 1px;
+}
+QPushButton:hover
+{
+background-color: rgba(0, 172, 252, 50);
+}
+
+QPushButton:pressed
+{  
+	background-color: rgba(0, 120, 252, 150);
+    border-style: inset;
+    border-width: 2px;
+
+}
+</string>
+    </property>
+    <property name="text">
+     <string>Button</string>
+    </property>
+   </widget>
+   <widget class="QWidget" name="workArea" native="true">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>0</y>
+      <width>1000</width>
+      <height>720</height>
+     </rect>
+    </property>
+   </widget>
+   <zorder>sidebarImg</zorder>
+   <zorder>newRoomButton</zorder>
+   <zorder>newRoomButton_2</zorder>
+   <zorder>newRoomButton_3</zorder>
+   <zorder>newRoomButton_4</zorder>
+   <zorder>newRoomButton_5</zorder>
+   <zorder>newRoomButton_6</zorder>
+   <zorder>workArea</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

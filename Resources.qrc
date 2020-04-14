@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/IMG">
+        <file>Images/Main Window/Sidebar Button.png</file>
+        <file>Images/Main Window/Backdrop.jpg</file>
+        <file>Images/Main Window/Sidebar - Chalkboard.jpg</file>
+    </qresource>
+    <qresource prefix="/"/>
+</RCC>
