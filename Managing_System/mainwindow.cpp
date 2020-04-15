@@ -15,29 +15,31 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
     _rooms.reserve(10);
-    initializer(_rooms, this);
+
 
     container = new QWidget(ui->workArea);
    // container->resize(ui->workArea->size());
 
     FlowLayout* grid = new FlowLayout(container);
     container->setLayout(grid);
+    initializer(_rooms, grid);
 
-
-    for(int row = 0; row<15; ++row)
+    /*for(int row = 0; row<100; ++row)
     {
         for(int col =0; col<10; ++col)
         {
-            roomButtonWrap* button = new roomButtonWrap("text");
+            roomButtonWrap* button =
+                    new roomButtonWrap("Room " + QString::number(roomButtonWrap::getID()));
             button->setFixedSize(100,100);
             grid->addWidget(button);
         }
-    }
+    }*/
     scrollArea = new QScrollArea(ui->workArea);
     scrollArea->setWidget(container);
     scrollArea->resize(1000,720);
     scrollArea->setWidgetResizable(true);
     qDebug() << scrollArea->size();
+
 }
 
 MainWindow::~MainWindow()
@@ -60,23 +62,9 @@ void MainWindow::resizeEvent(QResizeEvent* evt)
 
 void MainWindow::on_newRoomButton_released()
 {
-    /*roomButtonWrap* lastButton = nullptr;
 
-    if(_rooms.size()>0)
-    {
-        lastButton = _rooms.back();
-    }
-
-    QString prepend = "Room ";
-
-    roomButtonWrap* nextButton = initializer.newRoomButton
-            (lastButton,prepend.append( QString::number(roomButtonWrap::getID())),this);
-    if(nextButton != nullptr)
-    {
-        _rooms.push_back(nextButton);
-
-    }*/
-    container->layout()->addWidget(new roomButtonWrap("button"));
+    container->layout()->
+            addWidget(new roomButtonWrap("Room " + QString::number(roomButtonWrap::getID())));
 
 }
 

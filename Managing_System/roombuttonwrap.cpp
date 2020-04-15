@@ -16,6 +16,7 @@ roomButtonWrap::roomButtonWrap (const QString& text, QWidget* parrent):
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
+    setFixedSize(100,100);
     //this->show();
 }
 

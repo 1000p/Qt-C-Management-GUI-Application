@@ -7,6 +7,7 @@
 #include <QFile>
 #include <QDebug>
 #include <QCoreApplication>
+#include <QLayout>
 
 //THIS CLASS IS SIGLETON
 class Initializer
@@ -19,54 +20,23 @@ public:
         return instance;
     }
 
-    void operator () (QVector<roomButtonWrap*>& buttons, QWidget* parent)
+    void operator () (QVector<roomButtonWrap*>& buttons, QLayout* layout)
     {
-       if(!readRooms(buttons, parent) )
+       if(!readRooms(buttons, layout) )
        {
            qDebug() << "Error readig rooms !! readRooms returned false !";
        }
 
     }
 
-    roomButtonWrap* newRoomButton(roomButtonWrap* lastButton,QString& name, QWidget* parent)
+   /* roomButtonWrap* newRoomButton(QString& name, QLayout* layout)
     {
 
-        QRect newButtonGeometry;
-
-        int bX, bY;
-
-        if(lastButton == nullptr)
-        {
-            bX = 280;
-            bY = 0;
-            newButtonGeometry = {bX,bY,200,120};
-        }
-        else
-        {
-           QRect lastButtonPos = lastButton->geometry();
-            bX = lastButtonPos.x() + lastButtonPos.width();
-            if(bX + lastButtonPos.width() > parent->width())
-            {
-                bY = lastButtonPos.y() + lastButtonPos.height();
-                bX = 280;
-                if(bY + lastButtonPos.height() > parent->height())
-                {
-                    qDebug() << "No more space";
-                    return nullptr;
-                }
-            }
-            else
-            {
-                bY = lastButtonPos.y();
-            }
-
-           newButtonGeometry = {bX,bY,lastButtonPos.width(),lastButtonPos.height()};
-        }
-        roomButtonWrap* button = new roomButtonWrap(name, parent);
-        button->setGeometry(newButtonGeometry);
+        roomButtonWrap* button = new roomButtonWrap(name);
+        layout->addWidget(button);
 
         return button;
-    }
+    }*/
 
 
 private:
@@ -75,12 +45,11 @@ private:
     void operator = ( Initializer const& other) = delete;
 
 
-    bool readRooms(QVector<roomButtonWrap*>& buttons, QWidget* parent)
+    bool readRooms(QVector<roomButtonWrap*>& buttons, QLayout* layout)
     {
         bool success = true;
 
-        QFile rooms( QCoreApplication::applicationDirPath() +
-                    "/Data/Rooms/Rooms.txt");
+        QFile rooms( ":/DATA/Data/Rooms/Rooms.txt");
 
         if(!rooms.open(QIODevice::ReadOnly | QIODevice::Text)){
             qDebug() << "Error opening the file at: /Data/Rooms/Rooms.txt";
@@ -89,12 +58,13 @@ private:
         {
             QTextStream file(&rooms);
             QString line = file.readLine();
-            roomButtonWrap* lastButton = nullptr;
+            roomButtonWrap* button = nullptr;
 
             while(!line.isNull())
             {
-                lastButton = newRoomButton(lastButton,line,  parent);
-                buttons.push_back(lastButton);
+                button = new roomButtonWrap(line);
+                layout->addWidget(button);
+                buttons.push_back(button);
                 line = file.readLine();
 
             }

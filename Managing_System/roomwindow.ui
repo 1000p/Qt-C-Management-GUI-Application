@@ -39,6 +39,15 @@
      <underline>false</underline>
     </font>
    </property>
+   <property name="autoFillBackground">
+    <bool>false</bool>
+   </property>
+   <property name="styleSheet">
+    <string notr="true">/*QLabel
+{
+	border-image: url(:/IMG/Images/Room Window/Backdrop.jpg) 0 0 0 0 stretch stretch;
+}*/</string>
+   </property>
    <property name="text">
     <string/>
    </property>

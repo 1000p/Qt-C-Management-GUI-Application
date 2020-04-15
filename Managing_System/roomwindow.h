@@ -2,7 +2,7 @@
 #define ROOMWINDOW_H
 
 #include <QDialog>
-
+#include <QImageReader>
 namespace Ui {
 class roomWindow;
 }
@@ -26,9 +26,9 @@ protected:
 
 private:
     Ui::roomWindow *ui;
-    QPixmap backdrop;
-    QPixmap temp;
+    QImage backdrop;
     QPalette palette;
+
     bool changed;
 };
 

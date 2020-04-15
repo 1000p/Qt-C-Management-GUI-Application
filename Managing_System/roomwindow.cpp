@@ -2,20 +2,31 @@
 #include "ui_roomwindow.h"
 #include <QPalette>
 
+#include <QDebug>
+
 roomWindow::roomWindow(QWidget *parent) :
     QDialog(nullptr),
     ui(new Ui::roomWindow), changed(false)
 {
     ui->setupUi(this);
-    backdrop.load("C:/Users/loopg/Local P"
-                      "roject/Managing_System/Images/"
-                      "Room Window/Backdrop.jpg");
+    QImageReader reader(":/IMG/Images/Room Window/Backdrop.png");
 
-    backdrop = backdrop.scaled(backdrop.width(),backdrop.height(), Qt::IgnoreAspectRatio);
-    palette.setBrush(QPalette::Background, backdrop);
-    this->setPalette(palette);
+    if(reader.supportsOption(QImageIOHandler::ScaledSize))
+    {
+        reader.setScaledSize(this->size());
+        backdrop = reader.read();
+        palette.setBrush(QPalette::Background, backdrop);
+        this->setPalette(palette);
+
+    }else
+    {
+        qDebug() << "ERROR at backdrop scaling for the Room Window!!";
+    }
+
+
+
     connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
-   // setAttribute(Qt::WA_DeleteOnClose);
+
     setWindowFlag(Qt::WindowMinimizeButtonHint);
     show();
     ui->occupants->viewport()->setAutoFillBackground(false);
@@ -35,9 +46,11 @@ void roomWindow::closeEvent(QCloseEvent * evt)
 }
 
 void roomWindow::resizeEvent(QResizeEvent *evt)
-{
-    temp = backdrop.scaled(this->size(), Qt::IgnoreAspectRatio);
-    palette.setBrush(QPalette::Background, temp);
+{   
+   QImageReader reader (":/IMG/Images/Room Window/Backdrop.png");
+   reader.setScaledSize(this->size());
+   QPalette palette;
+   palette.setBrush(QPalette::Background, reader.read());
     this->setPalette(palette);
     QDialog::resizeEvent(evt);
 }
