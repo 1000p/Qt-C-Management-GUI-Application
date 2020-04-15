@@ -3,6 +3,7 @@
 
 #include "initializer.h"
 #include "roombuttonwrap.h"
+#include "flowlayout.h"
 
 #include <QMainWindow>
 
