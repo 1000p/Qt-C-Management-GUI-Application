@@ -25,15 +25,20 @@ public slots:
   void  on_newRoomButton_released();
 
 protected:
-  void resizeEvent(QResizeEvent* evt);
+  void resizeEvent(QResizeEvent* evt) override;
+  void paintEvent(QPaintEvent* evt) override;
 
 private:
+
+
     Ui::MainWindow *ui;
 
     Initializer& initializer;
     QVector<roomButtonWrap*> _rooms;
+
     QScrollArea* scrollArea;
     QWidget* container;
+
 
 };
 #endif // MAINWINDOW_H

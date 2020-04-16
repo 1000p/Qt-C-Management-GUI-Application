@@ -1,0 +1,12 @@
+#ifndef RESOURCETYPE_H
+#define RESOURCETYPE_H
+
+enum class ResourceType
+{
+    ROOM_BACKDROP,
+    SIDEBAR_BACKDROP,
+    WORKAREA_BACKDROP,
+    ROOM_WINDOW_SPAWNER
+};
+
+#endif // RESOURCETYPE_H

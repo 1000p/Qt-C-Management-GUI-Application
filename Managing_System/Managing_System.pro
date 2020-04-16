@@ -25,6 +25,7 @@ SOURCES += \
     roomwindow.cpp
 
 HEADERS += \
+    ResourceType.h \
     flowlayout.h \
     initializer.h \
     mainwindow.h \

@@ -6,6 +6,7 @@
 #include <QVBoxLayout>
 #include <QGridLayout>
 #include <QScrollArea>
+#include <QPainter>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent),
@@ -34,17 +35,25 @@ MainWindow::MainWindow(QWidget *parent)
             grid->addWidget(button);
         }
     }*/
+
     scrollArea = new QScrollArea(ui->workArea);
     scrollArea->setWidget(container);
     scrollArea->resize(1000,720);
     scrollArea->setWidgetResizable(true);
     qDebug() << scrollArea->size();
+    setAttribute(Qt::WA_DeleteOnClose);
 
 }
 
 MainWindow::~MainWindow()
 {
+    for(auto room : _rooms )
+    {
+        delete room;
+    }
+    initializer.close();
     delete ui;
+    QApplication::quit();
 }
 
 
@@ -59,6 +68,12 @@ void MainWindow::resizeEvent(QResizeEvent* evt)
     QMainWindow::resizeEvent(evt);
 }
 
+void MainWindow::paintEvent(QPaintEvent* evt)
+{
+
+    QMainWindow::paintEvent(evt);
+
+}
 
 void MainWindow::on_newRoomButton_released()
 {
@@ -67,4 +82,6 @@ void MainWindow::on_newRoomButton_released()
             addWidget(new roomButtonWrap("Room " + QString::number(roomButtonWrap::getID())));
 
 }
+
+
 

@@ -1,6 +1,8 @@
 #include "roomwindow.h"
 #include "ui_roomwindow.h"
 #include <QPalette>
+#include <QPainter>
+#include <QDir>
 
 #include <QDebug>
 
@@ -9,26 +11,14 @@ roomWindow::roomWindow(QWidget *parent) :
     ui(new Ui::roomWindow), changed(false)
 {
     ui->setupUi(this);
-    QImageReader reader(":/IMG/Images/Room Window/Backdrop.png");
 
-    if(reader.supportsOption(QImageIOHandler::ScaledSize))
+    if(parent)
     {
-        reader.setScaledSize(this->size());
-        backdrop = reader.read();
-        palette.setBrush(QPalette::Background, backdrop);
-        this->setPalette(palette);
-
-    }else
-    {
-        qDebug() << "ERROR at backdrop scaling for the Room Window!!";
+        connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
     }
+    setWindowFlag(Qt::WindowMinimizeButtonHint );
 
 
-
-    connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
-
-    setWindowFlag(Qt::WindowMinimizeButtonHint);
-    show();
     ui->occupants->viewport()->setAutoFillBackground(false);
     ui->roomName->viewport()->setAutoFillBackground(false);
 }
@@ -38,6 +28,29 @@ roomWindow::~roomWindow()
     delete ui;
 }
 
+void roomWindow::init(QWidget* parent)
+{
+    this->show();
+    connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
+}
+
+void roomWindow::changeBackdrop (QImage& image)
+{
+    QSize size = this->size();
+    this->backdrop = image;
+    backdropWidth = size.width();
+    backdropHeight = size.height();
+}
+
+roomWindow* roomWindow::clone()
+{
+    roomWindow* window = new roomWindow();
+    window->backdrop = backdrop;
+    window->backdropWidth = backdropWidth;
+    window->backdropHeight = backdropHeight;
+
+    return window;
+}
 
 void roomWindow::closeEvent(QCloseEvent * evt)
 {
@@ -45,12 +58,26 @@ void roomWindow::closeEvent(QCloseEvent * evt)
     emit setNull(evt);
 }
 
+void roomWindow::paintEvent(QPaintEvent * evt)
+{
+    QPainter painter (this);
+    QRect rect {0,0, backdropWidth, backdropHeight};
+    //qDebug() << rect;
+    painter.drawImage(rect, backdrop);
+
+    QDialog::paintEvent(evt);
+}
+
 void roomWindow::resizeEvent(QResizeEvent *evt)
 {   
-   QImageReader reader (":/IMG/Images/Room Window/Backdrop.png");
-   reader.setScaledSize(this->size());
-   QPalette palette;
-   palette.setBrush(QPalette::Background, reader.read());
-    this->setPalette(palette);
+    QSize winSize = size();
+    if(backdropWidth>winSize.width() ||backdropWidth<winSize.width() )
+    {
+        backdropWidth  = winSize.width();
+    }
+    if(backdropHeight>winSize.height() || backdropHeight<winSize.height())
+    {
+        backdropHeight = winSize.height();
+    }
     QDialog::resizeEvent(evt);
 }

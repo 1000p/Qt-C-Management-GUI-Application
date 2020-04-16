@@ -3,8 +3,9 @@
 
 int roomButtonWrap::roomID = 1;
 
+
 roomButtonWrap::roomButtonWrap(QWidget* parrent):
-    QPushButton(parrent), window(nullptr)
+    QPushButton(parrent), initializer(Initializer::getInstance()),window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
@@ -12,7 +13,7 @@ roomButtonWrap::roomButtonWrap(QWidget* parrent):
 }
 
 roomButtonWrap::roomButtonWrap (const QString& text, QWidget* parrent):
-    QPushButton(text,parrent), window(nullptr)
+    QPushButton(text,parrent),initializer(Initializer::getInstance()), window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
@@ -22,12 +23,18 @@ roomButtonWrap::roomButtonWrap (const QString& text, QWidget* parrent):
 
 
 roomButtonWrap::roomButtonWrap(const QIcon& icon, const QString& text, QWidget* parrent):
-    QPushButton(icon,text,parrent), window(nullptr)
+    QPushButton(icon,text,parrent),initializer(Initializer::getInstance()), window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
 
     ++roomID;
     //this->show();
+}
+
+ roomButtonWrap::~roomButtonWrap()
+{
+    --roomID;
+     delete window;
 }
 
 
@@ -43,12 +50,18 @@ void roomButtonWrap::handleWindowEvent(QEvent* evt)
  void roomButtonWrap::released()
  {
      if(!window)
-     {
-        window = new roomWindow(this);
+     {      
+        roomWindow* spawner =
+        static_cast<roomWindow*>
+                (initializer.getObjectSpawner
+                 (static_cast<int>(ResourceType::ROOM_WINDOW_SPAWNER)));
+        window = spawner->clone();
+
+        window->init(this);
 
      }else
-     {
-         delete window;
+     {       
+        delete window;
          window = nullptr;
      }
  }

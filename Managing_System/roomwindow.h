@@ -12,22 +12,28 @@ class roomWindow : public QDialog
     Q_OBJECT
 
 public:
-    explicit roomWindow(QWidget *parent);
-    ~roomWindow();
+    roomWindow(QWidget *parent = nullptr);
+    virtual ~roomWindow();
+
+    void init(QWidget* parent);
+    void changeBackdrop (QImage& image);
+    roomWindow* clone();
 
 signals:
     Q_SIGNAL void setNull(QEvent * evt);
 
-
 protected:
     void resizeEvent(QResizeEvent* evt) override;
+    void paintEvent(QPaintEvent * evt) override;
     void closeEvent(QCloseEvent *evt) override;
 
 
 private:
     Ui::roomWindow *ui;
     QImage backdrop;
-    QPalette palette;
+
+    int backdropWidth;
+    int backdropHeight;
 
     bool changed;
 };

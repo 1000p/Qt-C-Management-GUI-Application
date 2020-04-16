@@ -1,6 +1,9 @@
 #ifndef ROOMBUTTONWRAP_H
 #define ROOMBUTTONWRAP_H
+
+#include "initializer.h"
 #include "roomwindow.h"
+
 
 #include <QPushButton>
 #include <QString>
@@ -16,13 +19,14 @@ public:
     roomButtonWrap(QWidget* parrent = nullptr);
     roomButtonWrap(const QString& text, QWidget* parrent = nullptr);
     roomButtonWrap(const QIcon& icon, const QString& text, QWidget* parrent=nullptr);
+    virtual ~roomButtonWrap();
 
     static int getID()
     {
         return roomID;
     }
 
-    virtual ~roomButtonWrap() = default;
+
 
 public slots:
 
@@ -31,8 +35,8 @@ public slots:
 
 private:
    static int roomID;
+   Initializer& initializer;
     roomWindow* window;
-
 
 };
 

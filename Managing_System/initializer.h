@@ -1,6 +1,8 @@
 #ifndef INITIALIZER_H
 #define INITIALIZER_H
-#include "roombuttonwrap.h"
+
+#include "ResourceType.h"
+#include "roomwindow.h"
 
 //#include <QString>
 #include <QVector>
@@ -8,6 +10,9 @@
 #include <QDebug>
 #include <QCoreApplication>
 #include <QLayout>
+#include <QHash>
+
+class roomButtonWrap;
 
 //THIS CLASS IS SIGLETON
 class Initializer
@@ -20,63 +25,30 @@ public:
         return instance;
     }
 
-    void operator () (QVector<roomButtonWrap*>& buttons, QLayout* layout)
-    {
-       if(!readRooms(buttons, layout) )
-       {
-           qDebug() << "Error readig rooms !! readRooms returned false !";
-       }
+    void operator () (QVector<roomButtonWrap*>& buttons, QLayout* layout);
 
-    }
+    void* getObjectSpawner(int key);
 
-   /* roomButtonWrap* newRoomButton(QString& name, QLayout* layout)
-    {
-
-        roomButtonWrap* button = new roomButtonWrap(name);
-        layout->addWidget(button);
-
-        return button;
-    }*/
+    void close();
 
 
 private:
     Initializer();
+
+
     Initializer(Initializer const& other) = delete;
     void operator = ( Initializer const& other) = delete;
 
 
-    bool readRooms(QVector<roomButtonWrap*>& buttons, QLayout* layout)
-    {
-        bool success = true;
+    bool readRooms(QVector<roomButtonWrap*>& buttons, QLayout* layout);
 
-        QFile rooms( ":/DATA/Data/Rooms/Rooms.txt");
+    roomWindow* initRoomWindowSpawner(bool test);
 
-        if(!rooms.open(QIODevice::ReadOnly | QIODevice::Text)){
-            qDebug() << "Error opening the file at: /Data/Rooms/Rooms.txt";
-            success = false;
-        }else
-        {
-            QTextStream file(&rooms);
-            QString line = file.readLine();
-            roomButtonWrap* button = nullptr;
+    void loadSpawners();
 
-            while(!line.isNull())
-            {
-                button = new roomButtonWrap(line);
-                layout->addWidget(button);
-                buttons.push_back(button);
-                line = file.readLine();
-
-            }
-
-        }
-
-        return success;
-    }
+    QHash <int, void*> _objects;
 
 
-    QString roomsPath;
-    QString prefix = ".txt";
 };
 
 #endif // INITIALIZER_H
