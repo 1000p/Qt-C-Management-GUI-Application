@@ -42,6 +42,7 @@ void roomWindow::init(roomButtonWrap* parent)
     this->show();
     connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
     this->parent = parent;
+    readFiles();
 }
 
 void roomWindow::changeBackdrop (QImage& image)
@@ -142,4 +143,46 @@ void roomWindow::resizeEvent(QResizeEvent *evt)
 void roomWindow::setChanged()
 {
     changed = true;
+}
+
+void roomWindow::readFiles()
+{
+
+     QString applicationDir = QApplication::applicationDirPath()
+             .append("/Data/Rooms/");
+
+     QString roomName = parent->text() + '/';
+     QString filePath = applicationDir + roomName;
+     QDir dir;
+
+     QFileInfo outDir (filePath);
+     if (!outDir.exists())
+     {
+         return;
+     }
+
+
+     QFile occupantsF (filePath + "Occupants");
+
+     if(!occupantsF.open(QIODevice::ReadOnly | QIODevice::Text))
+     {
+         qDebug() << "Error occured while reading data for room window at:"<<filePath + roomName;
+     }
+     else
+     {
+         QTextStream stream(&occupantsF);
+         ui->occupants->insertHtml(stream.readAll());
+     }
+
+     QFile notesF(filePath + "Notes");
+     if(!notesF.open(QIODevice::ReadOnly | QIODevice::Text))
+     {
+         qDebug() << "Error occured while reading data for room window at:"<<filePath + roomName;
+     }
+     else
+     {
+         QTextStream stream(&notesF);
+         ui->notes->insertHtml(stream.readAll());
+     }
+
 }

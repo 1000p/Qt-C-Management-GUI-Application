@@ -34,6 +34,8 @@ protected slots:
     void setChanged();
 
 private:
+    void readFiles();
+
     Ui::roomWindow *ui;
     QImage backdrop;
     roomButtonWrap* parent;
