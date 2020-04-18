@@ -1,5 +1,6 @@
 #include "initializer.h"
 #include "roombuttonwrap.h"
+#include "roomwindow.h"
 
 Initializer::Initializer()
 {

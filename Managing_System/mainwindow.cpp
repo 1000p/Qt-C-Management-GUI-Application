@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
+
 #include <iostream>
 #include <QDebug>
 #include <QResizeEvent>
@@ -16,10 +17,8 @@ MainWindow::MainWindow(QWidget *parent)
 
     ui->setupUi(this);
     _rooms.reserve(10);
-
-
-    container = new QWidget(ui->workArea);
-   // container->resize(ui->workArea->size());
+    workArea = new scrollAreaParent(this);
+    container = new QWidget(workArea);
 
     FlowLayout* grid = new FlowLayout(container);
     container->setLayout(grid);
@@ -36,13 +35,15 @@ MainWindow::MainWindow(QWidget *parent)
         }
     }*/
 
-    scrollArea = new QScrollArea(ui->workArea);
+    scrollArea = new QScrollArea(workArea);
     scrollArea->setWidget(container);
     scrollArea->resize(1000,720);
-    scrollArea->setWidgetResizable(true);
-    qDebug() << scrollArea->size();
-    setAttribute(Qt::WA_DeleteOnClose);
+    scrollArea->setWidgetResizable(true);    
+    scrollArea->setStyleSheet("QScrollArea { background: transparent;}"
+                              "QScrollArea > QWidget > QWidget { background: transparent;}"
+                              "QScrollArea > QWidget > QScrollBar { background: palette(base);}");
 
+    setAttribute(Qt::WA_DeleteOnClose);
 }
 
 MainWindow::~MainWindow()
@@ -63,7 +64,7 @@ void MainWindow::resizeEvent(QResizeEvent* evt)
 
     ui->sidebarImg->setGeometry(0,0,280,winSize.height());
     scrollArea->resize(winSize.width()-280,winSize.height());
-    ui->workArea->resize(scrollArea->size());
+    workArea->resize(scrollArea->size());
 
     QMainWindow::resizeEvent(evt);
 }

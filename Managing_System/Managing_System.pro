@@ -22,7 +22,8 @@ SOURCES += \
     main.cpp \
     mainwindow.cpp \
     roombuttonwrap.cpp \
-    roomwindow.cpp
+    roomwindow.cpp \
+    scrollareaparent.cpp
 
 HEADERS += \
     ResourceType.h \
@@ -30,7 +31,8 @@ HEADERS += \
     initializer.h \
     mainwindow.h \
     roombuttonwrap.h \
-    roomwindow.h
+    roomwindow.h \
+    scrollareaparent.h
 
 FORMS += \
     mainwindow.ui \

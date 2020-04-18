@@ -4,6 +4,7 @@
 #include "initializer.h"
 #include "roombuttonwrap.h"
 #include "flowlayout.h"
+#include "scrollareaparent.h"
 
 #include <QMainWindow>
 
@@ -35,6 +36,7 @@ private:
 
     Initializer& initializer;
     QVector<roomButtonWrap*> _rooms;
+    scrollAreaParent* workArea;
 
     QScrollArea* scrollArea;
     QWidget* container;

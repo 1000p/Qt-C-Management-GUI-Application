@@ -290,16 +290,6 @@ QPushButton:pressed
      <string>Button</string>
     </property>
    </widget>
-   <widget class="QWidget" name="workArea" native="true">
-    <property name="geometry">
-     <rect>
-      <x>280</x>
-      <y>0</y>
-      <width>1000</width>
-      <height>720</height>
-     </rect>
-    </property>
-   </widget>
    <zorder>sidebarImg</zorder>
    <zorder>newRoomButton</zorder>
    <zorder>newRoomButton_2</zorder>
@@ -307,7 +297,6 @@ QPushButton:pressed
    <zorder>newRoomButton_4</zorder>
    <zorder>newRoomButton_5</zorder>
    <zorder>newRoomButton_6</zorder>
-   <zorder>workArea</zorder>
   </widget>
  </widget>
  <resources/>

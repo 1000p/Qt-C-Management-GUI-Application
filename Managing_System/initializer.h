@@ -2,7 +2,7 @@
 #define INITIALIZER_H
 
 #include "ResourceType.h"
-#include "roomwindow.h"
+//#include "roomwindow.h"
 
 //#include <QString>
 #include <QVector>
@@ -13,6 +13,7 @@
 #include <QHash>
 
 class roomButtonWrap;
+class roomWindow;
 
 //THIS CLASS IS SIGLETON
 class Initializer

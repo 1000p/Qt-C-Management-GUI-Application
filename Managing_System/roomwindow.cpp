@@ -1,8 +1,10 @@
 #include "roomwindow.h"
+
 #include "ui_roomwindow.h"
 #include <QPalette>
 #include <QPainter>
 #include <QDir>
+#include <QtEvents>
 
 #include <QDebug>
 
@@ -28,8 +30,10 @@ roomWindow::~roomWindow()
     delete ui;
 }
 
-void roomWindow::init(QWidget* parent)
+void roomWindow::init(roomButtonWrap* parent)
 {
+    ui->roomName->setText(parent->text());
+    ui->roomName->setAlignment(Qt::AlignCenter);
     this->show();
     connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
 }
@@ -55,6 +59,7 @@ roomWindow* roomWindow::clone()
 void roomWindow::closeEvent(QCloseEvent * evt)
 {
     QDialog::closeEvent(evt);
+
     emit setNull(evt);
 }
 

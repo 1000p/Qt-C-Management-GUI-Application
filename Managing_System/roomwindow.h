@@ -1,6 +1,7 @@
 #ifndef ROOMWINDOW_H
 #define ROOMWINDOW_H
 
+#include "roombuttonwrap.h"
 #include <QDialog>
 #include <QImageReader>
 namespace Ui {
@@ -15,7 +16,7 @@ public:
     roomWindow(QWidget *parent = nullptr);
     virtual ~roomWindow();
 
-    void init(QWidget* parent);
+    void init(roomButtonWrap* parent);
     void changeBackdrop (QImage& image);
     roomWindow* clone();
 
