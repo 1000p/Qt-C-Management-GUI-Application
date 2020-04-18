@@ -20,6 +20,8 @@ public:
     void changeBackdrop (QImage& image);
     roomWindow* clone();
 
+    void save();
+
 signals:
     Q_SIGNAL void setNull(QEvent * evt);
 
@@ -28,10 +30,13 @@ protected:
     void paintEvent(QPaintEvent * evt) override;
     void closeEvent(QCloseEvent *evt) override;
 
+protected slots:
+    void setChanged();
 
 private:
     Ui::roomWindow *ui;
     QImage backdrop;
+    roomButtonWrap* parent;
 
     int backdropWidth;
     int backdropHeight;

@@ -1,6 +1,7 @@
 #include "roombuttonwrap.h"
 #include "roomwindow.h"
 
+#include <QFlags>
 int roomButtonWrap::roomID = 1;
 
 
@@ -34,8 +35,43 @@ roomButtonWrap::roomButtonWrap(const QIcon& icon, const QString& text, QWidget* 
  roomButtonWrap::~roomButtonWrap()
 {
     --roomID;
-     delete window;
+     if(window)
+     {
+        delete window;
+     }
 }
+
+
+ void roomButtonWrap::save()
+ {
+     static bool shouldClear = true;
+     QString appllicationDir = QCoreApplication::applicationDirPath();
+     QString filePath = appllicationDir.append("/Data/Rooms/Rooms.txt");
+
+     QFile rooms(filePath);
+     QFlags <QIODevice::OpenModeFlag> flags;
+
+     if(shouldClear)
+     {
+        flags = (QIODevice::WriteOnly | QIODevice::Text);
+        shouldClear = false;
+     }
+     else
+     {
+         flags = QIODevice::WriteOnly | QIODevice::Append | QIODevice::Text;
+     }
+
+     if(!rooms.open(flags))
+     {
+         qDebug() << "Error occured while saving data for room buttons, file"
+                     "could not be initialized/created at:"<<filePath;
+     }else
+     {
+         QTextStream stream(&rooms);
+         stream<<this->text()<<'\n';
+     }
+    rooms.close();
+ }
 
 
 void roomButtonWrap::handleWindowEvent(QEvent* evt)
@@ -62,7 +98,7 @@ void roomButtonWrap::handleWindowEvent(QEvent* evt)
      }else
      {       
         delete window;
-         window = nullptr;
+        window = nullptr;
      }
  }
 

@@ -17,16 +17,21 @@ roomWindow::roomWindow(QWidget *parent) :
     if(parent)
     {
         connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
+        this->parent = static_cast<roomButtonWrap*>(parent);
     }
     setWindowFlag(Qt::WindowMinimizeButtonHint );
 
 
     ui->occupants->viewport()->setAutoFillBackground(false);
     ui->roomName->viewport()->setAutoFillBackground(false);
+
+    connect(this->ui->occupants,SIGNAL(textChanged()),this,SLOT(setChanged()));
+    connect(this->ui->notes,SIGNAL(textChanged()),this,SLOT(setChanged()));
 }
 
 roomWindow::~roomWindow()
 {
+    save();
     delete ui;
 }
 
@@ -36,6 +41,7 @@ void roomWindow::init(roomButtonWrap* parent)
     ui->roomName->setAlignment(Qt::AlignCenter);
     this->show();
     connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
+    this->parent = parent;
 }
 
 void roomWindow::changeBackdrop (QImage& image)
@@ -54,6 +60,52 @@ roomWindow* roomWindow::clone()
     window->backdropHeight = backdropHeight;
 
     return window;
+}
+
+void roomWindow::save()
+{
+
+    if(changed)
+    {
+        QString applicationDir = QApplication::applicationDirPath()
+                .append("/Data/Rooms/");
+
+        QString roomName = parent->text() + '/';
+        QString filePath = applicationDir + roomName;
+        QDir dir;
+
+        QFileInfo outDir (filePath);
+        if (!outDir.exists())
+        {
+            dir.mkdir(filePath);
+        }
+
+
+        QFile occupantsF (filePath + "Occupants");
+
+        if(!occupantsF.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            qDebug() << "Error occured while saving data for room window, file"
+                        "could not be initialized/created at:"<<filePath + roomName;
+        }
+        else
+        {
+            QTextStream stream(&occupantsF);
+            stream << ui->occupants->toHtml();
+        }
+
+        QFile notesF(filePath + "Notes");
+        if(!notesF.open(QIODevice::WriteOnly | QIODevice::Text))
+        {
+            qDebug() << "Error occured while saving data for room window, file"
+                        "could not be initialized/created at:"<<filePath + roomName;
+        }
+        else
+        {
+            QTextStream stream(&notesF);
+            stream << ui->notes->toHtml();
+        }
+    }
 }
 
 void roomWindow::closeEvent(QCloseEvent * evt)
@@ -85,4 +137,9 @@ void roomWindow::resizeEvent(QResizeEvent *evt)
         backdropHeight = winSize.height();
     }
     QDialog::resizeEvent(evt);
+}
+
+void roomWindow::setChanged()
+{
+    changed = true;
 }

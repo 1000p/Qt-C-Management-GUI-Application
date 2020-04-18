@@ -50,6 +50,7 @@ MainWindow::~MainWindow()
 {
     for(auto room : _rooms )
     {
+        room->save();
         delete room;
     }
     initializer.close();
@@ -78,10 +79,10 @@ void MainWindow::paintEvent(QPaintEvent* evt)
 
 void MainWindow::on_newRoomButton_released()
 {
-
+    roomButtonWrap* toAdd = new roomButtonWrap("Room " + QString::number(roomButtonWrap::getID()));
     container->layout()->
-            addWidget(new roomButtonWrap("Room " + QString::number(roomButtonWrap::getID())));
-
+            addWidget(toAdd);
+    _rooms.push_back(toAdd);
 }
 
 

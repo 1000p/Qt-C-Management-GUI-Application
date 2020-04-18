@@ -26,6 +26,8 @@ public:
         return roomID;
     }
 
+    void save();
+
 
 
 public slots:
