@@ -15,7 +15,7 @@ class roomWindow : public QDialog
     Q_OBJECT
 
 public:
-    roomWindow(QWidget *parent = nullptr);
+    roomWindow(int occupiedFlag, QWidget *parent = nullptr);
     virtual ~roomWindow();
 
     void init(roomButtonWrap* parent);
@@ -26,6 +26,7 @@ public:
 
 signals:
     Q_SIGNAL void setNull(QEvent * evt);
+    void occupieCBEvent(int flag);
 
 protected:
     void resizeEvent(QResizeEvent* evt) override;
@@ -39,6 +40,8 @@ private slots:
     void on_cancelButton_released();
 
     void on_saveButton_released();
+
+    void on_occupiedCB_stateChanged(int arg1);
 
 private:
     void readFiles();

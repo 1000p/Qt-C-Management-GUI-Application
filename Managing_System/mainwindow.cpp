@@ -79,7 +79,7 @@ void MainWindow::paintEvent(QPaintEvent* evt)
 
 void MainWindow::on_newRoomButton_released()
 {
-    roomButtonWrap* toAdd = new roomButtonWrap("Room " + QString::number(roomButtonWrap::getID()));
+    roomButtonWrap* toAdd = new roomButtonWrap(0,"Room " + QString::number(roomButtonWrap::getID()));
     container->layout()->
             addWidget(toAdd);
     _rooms.push_back(toAdd);

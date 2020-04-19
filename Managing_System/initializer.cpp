@@ -59,15 +59,17 @@ bool Initializer::readRooms(QVector<roomButtonWrap*>& buttons, QLayout* layout)
     {
         QTextStream file(&rooms);
         QString line = file.readLine();
+        int occupiedFlag;
         roomButtonWrap* button = nullptr;
 
         while(!line.isNull())
-        {
-            button = new roomButtonWrap(line);
+        {           
+            file >> occupiedFlag; file.skipWhiteSpace();
+            button = new roomButtonWrap(occupiedFlag, line);
+
             layout->addWidget(button);
             buttons.push_back(button);
             line = file.readLine();
-
         }
 
     }
@@ -100,7 +102,7 @@ roomWindow* Initializer::initRoomWindowSpawner(bool test)
         textStream.skipWhiteSpace();
 
         QString line = textStream.readLine();
-        window = new roomWindow();
+        window = new roomWindow(0);
 
         QImageReader reader(applicationDir.append(line));
 

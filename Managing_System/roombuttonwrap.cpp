@@ -5,30 +5,33 @@
 int roomButtonWrap::roomID = 1;
 
 
-roomButtonWrap::roomButtonWrap(QWidget* parrent):
-    QPushButton(parrent), initializer(Initializer::getInstance()),window(nullptr)
+roomButtonWrap::roomButtonWrap(int styleFlag, QWidget* parrent):
+    QPushButton(parrent),occupied(styleFlag), initializer(Initializer::getInstance()),window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
+    setStyle(occupied);
     //this->show();
 }
 
-roomButtonWrap::roomButtonWrap (const QString& text, QWidget* parrent):
-    QPushButton(text,parrent),initializer(Initializer::getInstance()), window(nullptr)
+roomButtonWrap::roomButtonWrap (int styleFlag, const QString& text, QWidget* parrent):
+    QPushButton(text,parrent),occupied(styleFlag),initializer(Initializer::getInstance()), window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
     setFixedSize(100,100);
+    setStyle(occupied);
     //this->show();
 }
 
 
-roomButtonWrap::roomButtonWrap(const QIcon& icon, const QString& text, QWidget* parrent):
-    QPushButton(icon,text,parrent),initializer(Initializer::getInstance()), window(nullptr)
+roomButtonWrap::roomButtonWrap(int styleFlag, const QIcon& icon, const QString& text, QWidget* parrent):
+    QPushButton(icon,text,parrent),occupied(styleFlag),initializer(Initializer::getInstance()), window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
 
     ++roomID;
+    setStyle(occupied);
     //this->show();
 }
 
@@ -68,7 +71,7 @@ roomButtonWrap::roomButtonWrap(const QIcon& icon, const QString& text, QWidget* 
      }else
      {
          QTextStream stream(&rooms);
-         stream<<this->text()<<'\n';
+         stream<<this->text()<<'\n'<<occupied<<'\n';
      }
     rooms.close();
  }
@@ -81,6 +84,41 @@ void roomButtonWrap::handleWindowEvent(QEvent* evt)
         delete window;
         window = nullptr;
     }
+}
+
+void roomButtonWrap::setStyle(int isOccupied)
+{
+    if(isOccupied == 1)
+    {
+        this->setStyleSheet("QPushButton {"
+                            " font:bold;"
+                            " font-size: 12px;"
+                            " background-color: rgba(250, 0, 0, 60);"
+                            " border: 0px; }"
+                            " QPushButton:hover {"
+                            " border:0px solid rgb(200,0,0);"
+                            " border-width: 2px;"
+                            " background-color: rgba(250, 0, 0, 80); }"
+                            " QPushButton:pressed { "
+                            "background-color: rgba(250, 0, 0, 110);"
+                            " border-style: inset; "
+                            "border-width: 3px; }");
+    }else
+    {
+        this->setStyleSheet("QPushButton"
+                            " { background-color: rgba(0, 250, 0, 60); border: 0px;"
+                            "font:bold;"
+                            "font-size: 12px; }"
+                            " QPushButton:hover { "
+                            "border:0px solid rgb(0,150,0);"
+                            " border-width: 2px;"
+                            " background-color: rgba(0, 250, 0, 80); }"
+                            " QPushButton:pressed { "
+                            "background-color: rgba(0, 150, 0, 110);"
+                            " border-style: inset;"
+                            " border-width: 3px; }");
+    }
+
 }
 
  void roomButtonWrap::released()

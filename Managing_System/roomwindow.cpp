@@ -8,11 +8,16 @@
 
 #include <QDebug>
 
-roomWindow::roomWindow(QWidget *parent) :
+roomWindow::roomWindow(int occupiedFlag,QWidget *parent) :
     QDialog(nullptr),
     ui(new Ui::roomWindow), changed(false)
 {
     ui->setupUi(this);
+
+    if(occupiedFlag == 1)
+    {
+        ui->occupiedCB->setChecked(true);
+    }
 
     if(parent)
     {
@@ -35,7 +40,13 @@ roomWindow::~roomWindow()
 
 void roomWindow::init(roomButtonWrap* parent)
 {
-    ui->roomName->setText(parent->text());
+    if(parent->isOccupied())
+    {
+        ui->occupiedCB->setChecked(true);
+    }
+    QString parentName = parent->text();
+    this->setWindowTitle(parentName);
+    ui->roomName->setText(parentName);
     ui->roomName->setAlignment(Qt::AlignCenter);
     this->show();
     connect(this,SIGNAL(setNull(QEvent*)),parent,SLOT(handleWindowEvent(QEvent*)));
@@ -43,6 +54,7 @@ void roomWindow::init(roomButtonWrap* parent)
     readFiles();
     connect(this->ui->occupants,SIGNAL(textChanged()),this,SLOT(setChanged()));
     connect(this->ui->notes,SIGNAL(textChanged()),this,SLOT(setChanged()));
+    connect(this,SIGNAL(occupieCBEvent(int)),parent,SLOT(occupie(int)));
 }
 
 void roomWindow::changeBackdrop (QImage& image)
@@ -55,7 +67,7 @@ void roomWindow::changeBackdrop (QImage& image)
 
 roomWindow* roomWindow::clone()
 {
-    roomWindow* window = new roomWindow();
+    roomWindow* window = new roomWindow(0);
     window->backdrop = backdrop;
     window->backdropWidth = backdropWidth;
     window->backdropHeight = backdropHeight;
@@ -129,7 +141,7 @@ void roomWindow::closeEvent(QCloseEvent * evt)
              {
                  //Just closes the message box dialog
                  evt->ignore();
-                 return;
+                 return ;
              }
              case QMessageBox::Discard:
              {
@@ -246,6 +258,7 @@ void roomWindow::on_cancelButton_released()
              {
                  save();
                  changed = false;
+                 close();
                  break;
              }
              case QMessageBox::Cancel:
@@ -255,9 +268,9 @@ void roomWindow::on_cancelButton_released()
              }
              case QMessageBox::Discard:
              {
-
                  readFiles(); //Reloads the old information
                  changed = false;
+                 close();
                 break;
              }
         default:
@@ -304,5 +317,18 @@ void roomWindow::on_saveButton_released()
             break;
         }
         }
+    }
+}
+
+
+
+void roomWindow::on_occupiedCB_stateChanged(int arg1)
+{
+    if(arg1 == Qt::Unchecked)
+    {
+        emit occupieCBEvent(0);
+    }else
+    {
+        emit occupieCBEvent(1);
     }
 }

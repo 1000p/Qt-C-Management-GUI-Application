@@ -261,9 +261,12 @@ p, li { white-space: pre-wrap; }
       </widget>
      </item>
      <item>
-      <widget class="QPushButton" name="pushButton">
+      <widget class="QCheckBox" name="occupiedCB">
        <property name="text">
-        <string>PushButton</string>
+        <string>Reserve/Occupie</string>
+       </property>
+       <property name="tristate">
+        <bool>false</bool>
        </property>
       </widget>
      </item>
