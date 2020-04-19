@@ -96,9 +96,12 @@ void roomButtonWrap::handleWindowEvent(QEvent* evt)
         window->init(this);
 
      }else
-     {       
-        delete window;
-        window = nullptr;
+     {
+        if(window->close())
+        {
+            delete window;
+            window = nullptr;
+        }
      }
  }
 

@@ -129,7 +129,7 @@ void roomWindow::closeEvent(QCloseEvent * evt)
              {
                  //Just closes the message box dialog
                  evt->ignore();
-                 return;
+                 return ;
              }
              case QMessageBox::Discard:
              {

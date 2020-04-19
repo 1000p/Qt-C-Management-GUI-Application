@@ -4,6 +4,8 @@
 #include "roombuttonwrap.h"
 #include <QDialog>
 #include <QImageReader>
+#include <QMessageBox>
+
 namespace Ui {
 class roomWindow;
 }
@@ -20,7 +22,7 @@ public:
     void changeBackdrop (QImage& image);
     roomWindow* clone();
 
-    void save();
+    bool save();
 
 signals:
     Q_SIGNAL void setNull(QEvent * evt);
@@ -33,8 +35,15 @@ protected:
 protected slots:
     void setChanged();
 
+private slots:
+    void on_cancelButton_released();
+
+    void on_saveButton_released();
+
 private:
     void readFiles();
+
+    int saveDialog(QWidget* parent);
 
     Ui::roomWindow *ui;
     QImage backdrop;
