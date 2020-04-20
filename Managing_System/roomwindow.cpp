@@ -31,6 +31,7 @@ roomWindow::roomWindow(int occupiedFlag,QWidget *parent) :
     ui->roomName->viewport()->setAutoFillBackground(false);
 
 
+
 }
 
 roomWindow::~roomWindow()
@@ -54,6 +55,7 @@ void roomWindow::init(roomButtonWrap* parent)
     readFiles();
     connect(this->ui->occupants,SIGNAL(textChanged()),this,SLOT(setChanged()));
     connect(this->ui->notes,SIGNAL(textChanged()),this,SLOT(setChanged()));
+    connect(this->ui->roomName,SIGNAL(textChanged()),this,SLOT(setChanged()));
     connect(this,SIGNAL(occupieCBEvent(int)),parent,SLOT(occupie(int)));
 }
 
@@ -83,8 +85,18 @@ bool roomWindow::save()
         QString applicationDir = QApplication::applicationDirPath()
                 .append("/Data/Rooms/");
 
-        QString roomName = parent->text() + '/';
-        QString filePath = applicationDir + roomName;
+        QString buttonText = parent->text();
+        QString roomName = ui->roomName->toPlainText();
+
+        bool roomNameChanged = false;
+
+        if(buttonText!=roomName)
+        {
+            roomNameChanged = true;
+        }
+
+
+        QString filePath = applicationDir  + buttonText.append('/');
         QDir dir;
 
         QFileInfo outDir (filePath);
@@ -93,6 +105,12 @@ bool roomWindow::save()
             dir.mkdir(filePath);
         }
 
+        if(roomNameChanged)
+        {
+            dir.rename(filePath, applicationDir+roomName);
+            parent->setText(roomName);
+            filePath = applicationDir + roomName.append('/');
+        }
 
         QFile occupantsF (filePath + "Occupants");
 
@@ -236,6 +254,7 @@ void roomWindow::readFiles()
  int roomWindow::saveDialog(QWidget* parent)
  {
      QMessageBox message(parent);
+     message.resize(264,110);
      message.setText("The room information has been modified.");
      message.setInformativeText("Do you want to save your changes?");
      message.setStandardButtons(QMessageBox::Save | QMessageBox::Discard | QMessageBox::Cancel);

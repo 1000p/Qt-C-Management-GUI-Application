@@ -23,9 +23,17 @@
       <height>50</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <pointsize>10</pointsize>
+      <weight>75</weight>
+      <bold>true</bold>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton
 {
+color: white;
 background-color: rgba(0, 172, 252, 30);
 	border: 0px;
 }

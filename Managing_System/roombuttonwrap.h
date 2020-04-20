@@ -41,6 +41,11 @@ public slots:
 
     void released() ;
     void handleWindowEvent(QEvent* evt);
+    void setText(QString& text)
+    {
+
+        QPushButton::setText(text);
+    }
 
     void occupie(int flag)
     {

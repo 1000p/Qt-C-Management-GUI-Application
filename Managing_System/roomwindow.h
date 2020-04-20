@@ -26,6 +26,7 @@ public:
 
 signals:
     Q_SIGNAL void setNull(QEvent * evt);
+
     void occupieCBEvent(int flag);
 
 protected:
@@ -35,6 +36,7 @@ protected:
 
 protected slots:
     void setChanged();
+
 
 private slots:
     void on_cancelButton_released();

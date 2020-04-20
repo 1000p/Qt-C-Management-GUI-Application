@@ -262,6 +262,19 @@ p, li { white-space: pre-wrap; }
      </item>
      <item>
       <widget class="QCheckBox" name="occupiedCB">
+       <property name="font">
+        <font>
+         <pointsize>10</pointsize>
+         <weight>50</weight>
+         <bold>false</bold>
+        </font>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">QCheckBox
+{
+color: white;
+}</string>
+       </property>
        <property name="text">
         <string>Reserve/Occupie</string>
        </property>
