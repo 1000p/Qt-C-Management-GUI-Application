@@ -1,2 +1,36 @@
-Cinema
-Room 2
+CINEMA
+0
+LOBBY
+0
+ROOM 2
+0
+Room 4
+0
+Room 5
+0
+Room 6
+0
+Room 7
+0
+Room 8
+0
+Room 9
+0
+Room 10
+0
+Room 11
+0
+Room 12
+0
+Room 13
+0
+Room 14
+1
+Room 15
+0
+Room 16
+0
+Room 17
+0
+Room 18
+1
