@@ -58,36 +58,6 @@ QPushButton:pressed
      <string>Create new Room</string>
     </property>
    </widget>
-   <widget class="QLabel" name="sidebarImg">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>280</width>
-      <height>1280</height>
-     </rect>
-    </property>
-    <property name="minimumSize">
-     <size>
-      <width>280</width>
-      <height>1280</height>
-     </size>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">QLabel
-{
-	border-image: url(:/IMG/Images/Main Window/Sidebar - Chalkboard.jpg) 0 0 0 0 stretch stretch;
-}</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <zorder>sidebarImg</zorder>
-   <zorder>newRoomButton</zorder>
   </widget>
  </widget>
  <resources/>

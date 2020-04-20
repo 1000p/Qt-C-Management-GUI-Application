@@ -10,8 +10,8 @@ roomButtonWrap::roomButtonWrap(int styleFlag, QWidget* parrent):
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
+    setFixedSize(103,103);
     setStyle(occupied);
-    //this->show();
 }
 
 roomButtonWrap::roomButtonWrap (int styleFlag, const QString& text, QWidget* parrent):
@@ -19,9 +19,8 @@ roomButtonWrap::roomButtonWrap (int styleFlag, const QString& text, QWidget* par
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
     ++roomID;
-    setFixedSize(100,100);
+    setFixedSize(103,103);
     setStyle(occupied);
-    //this->show();
 }
 
 
@@ -29,10 +28,9 @@ roomButtonWrap::roomButtonWrap(int styleFlag, const QIcon& icon, const QString& 
     QPushButton(icon,text,parrent),occupied(styleFlag),initializer(Initializer::getInstance()), window(nullptr)
 {
     connect(this,SIGNAL(released()), this, SLOT(released()));
-
     ++roomID;
+    setFixedSize(103,103);
     setStyle(occupied);
-    //this->show();
 }
 
  roomButtonWrap::~roomButtonWrap()
@@ -88,10 +86,12 @@ void roomButtonWrap::handleWindowEvent(QEvent* evt)
 
 void roomButtonWrap::setStyle(int isOccupied)
 {
+    //Sets the button style based on if the room is reserved.
     if(isOccupied == 1)
     {
         this->setStyleSheet("QPushButton {"
                             " font:bold;"
+                            " color:white;"
                             " font-size: 12px;"
                             " background-color: rgba(250, 0, 0, 60);"
                             " border: 0px; }"
@@ -108,6 +108,7 @@ void roomButtonWrap::setStyle(int isOccupied)
         this->setStyleSheet("QPushButton"
                             " { background-color: rgba(0, 250, 0, 60); border: 0px;"
                             "font:bold;"
+                            "color:white;"
                             "font-size: 12px; }"
                             " QPushButton:hover { "
                             "border:0px solid rgb(0,150,0);"
@@ -123,8 +124,10 @@ void roomButtonWrap::setStyle(int isOccupied)
 
  void roomButtonWrap::released()
  {
+     //If we dont have our room window opened open - else close it
      if(!window)
-     {      
+     {
+        //Gets the room window factory objects as void* casts it, clones it and init()
         roomWindow* spawner =
         static_cast<roomWindow*>
                 (initializer.getObjectSpawner

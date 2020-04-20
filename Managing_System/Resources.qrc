@@ -1,11 +1,6 @@
 <RCC>
     <qresource prefix="/IMG">
-        <file>Images/Main Window/Sidebar Button.png</file>
-        <file>Images/Main Window/Backdrop.jpg</file>
-        <file>Images/Main Window/Sidebar - Chalkboard.jpg</file>
         <file>Images/Room Window/Backdrop.png</file>
     </qresource>
-    <qresource prefix="/DATA">
-        <file>Data/Rooms/Rooms.txt</file>
-    </qresource>
+    <qresource prefix="/DATA"/>
 </RCC>

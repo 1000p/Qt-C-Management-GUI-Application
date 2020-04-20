@@ -11,6 +11,7 @@ Initializer::Initializer()
 
 void Initializer::operator () (QVector<roomButtonWrap*>& buttons, QLayout* layout)
 {
+   //Initialize saved rooms
    if(!readRooms(buttons, layout) )
    {
        qDebug() << "Error readig rooms !! readRooms returned false !";
@@ -18,11 +19,13 @@ void Initializer::operator () (QVector<roomButtonWrap*>& buttons, QLayout* layou
 
 }
 
+//Gets a factory object as void*
 void* Initializer::getObjectSpawner(int key)
 {
     return _objects[key];
 }
 
+//Called on program termination to release factory objects
 void Initializer::close()
 {
     QHash <int, void*>::iterator it = _objects.begin();

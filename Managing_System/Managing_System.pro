@@ -18,6 +18,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     flowlayout.cpp \
+    imagelabel.cpp \
     initializer.cpp \
     main.cpp \
     mainwindow.cpp \
@@ -28,6 +29,7 @@ SOURCES += \
 HEADERS += \
     ResourceType.h \
     flowlayout.h \
+    imagelabel.h \
     initializer.h \
     mainwindow.h \
     roombuttonwrap.h \
@@ -43,5 +45,4 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-RESOURCES += \
-    Resources.qrc
+RESOURCES +=
